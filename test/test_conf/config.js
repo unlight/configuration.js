@@ -1,0 +1,4 @@
+{
+	"database": "db",
+	"user": "root"
+}
