@@ -13,6 +13,10 @@ wru.test([
 			wru.assert("get value test 2", configuration.get("application.title") === "unknown");
 			configuration.set("plugins.markdown", true);
 			wru.assert("set value test 1", configuration.get("plugins.markdown", true) === true);
+
+			var app = configuration.get('application');
+			app.title = "value2";
+			wru.assert("protect internal value test", app.title != configuration.get('application.title'));
 		}
 	}
 ]);
