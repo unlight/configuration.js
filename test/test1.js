@@ -8,7 +8,7 @@ wru.test([
 	{
 		name: "configuration module (files)",
 		test: function() {
-			configuration.loadFromFilesSync('test/test_conf/config-defaults.js', 'test/test_conf/config.js');
+			configuration.loadFromFilesSync('test_conf/config-defaults.js', 'test_conf/config.js');
 			wru.assert("get value test 1", configuration.get("database") == "db");
 			wru.assert("get value test 2", configuration.get("application.title") === "unknown");
 			configuration.set("plugins.markdown", true);
