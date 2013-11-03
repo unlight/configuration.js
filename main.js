@@ -5,6 +5,7 @@ var fs = require('fs');
 var vm = require('vm');
 var functions = require('useful-functions.js');
 var getValueR = functions.getValueR;
+var setValueR = functions.setValueR;
 var extend = functions.extend;
 
 // Private vars.
@@ -44,40 +45,3 @@ module.exports.set = function(fields, value) {
 	if (typeof fields !== 'string') throw new Error('Argument #1 expects a string.'); 
 	return setValueR(fields, configuration_data, value);
 }
-
-// Helpers.
-
-// https://github.com/jprichardson/node-field
-var setValueR = function(fields, object, value) {
-
-	if (typeof fields !== 'string') throw new Error('Argument #1 expects a string.');
-	fields = fields.split(/\./);
-
-	function levelUp (obj, field, value) {
-		if (typeof obj[field] !== 'undefined') { // we care about falsey values
-			if (fields.length === 0) {
-				// var oldVal = obj[field];
-				obj[field] = value;
-				return value;
-			} else {
-				if (typeof obj[field] !== 'object') { // we have more fields to go, so we need to replace the current non-object
-					obj[field] = {};
-				}
-				return levelUp(obj[field], fields.shift(), value);
-			}
-		} else {
-			// keep going if necessary
-			if (fields.length === 0) {
-				obj[field] = value;
-				return value;
-			} else {
-				// var newField = fields.shift()
-				obj[field] = {}; // {newField: value}
-				return levelUp(obj[field], fields.shift(), value);
-			}
-		}
-	}
-
-	return levelUp(object, fields.shift(), value);
-
-};
