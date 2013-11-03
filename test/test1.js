@@ -8,7 +8,7 @@ wru.test([
 	{
 		name: "configuration module (files)",
 		test: function() {
-			configuration.loadFromFilesSync('test_conf/config-defaults.js', 'test_conf/config.js');
+			var conf = configuration.loadFromFilesSync('test_conf/config-defaults.js', 'test_conf/config.js');
 			wru.assert("get value test 1", configuration.get("database") == "db");
 			wru.assert("get value test 2", configuration.get("application.title") === "unknown");
 			configuration.set("plugins.markdown", true);
@@ -17,6 +17,8 @@ wru.test([
 			var app = configuration.get('application');
 			app.title = "value2";
 			wru.assert("protect internal value test", app.title != configuration.get('application.title'));
+
+			wru.assert("conf == configuration", conf == configuration);
 		}
 	}
 ]);

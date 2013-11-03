@@ -11,9 +11,12 @@ var extend = functions.extend;
 // Private vars.
 var configuration_is_loaded = false;
 var configuration_data = {};
+var self = {};
+
+module.exports = self;
 
 // Public methods.
-module.exports.loadFromFilesSync = function() {
+self.loadFromFilesSync = function() {
 	var sandbox = {};
 	for (var i = 0, length = arguments.length; i < length; i++) {
 		var file = arguments[i];
@@ -27,9 +30,10 @@ module.exports.loadFromFilesSync = function() {
 		extend(configuration_data, sandbox.data);
 	}
 	configuration_is_loaded = true;
+	return self;
 }
 
-module.exports.get = function(fields) {
+self.get = function(fields) {
 	if (!configuration_is_loaded) {
 		throw "Configuration data not yet loaded.";
 	}
@@ -41,7 +45,7 @@ module.exports.get = function(fields) {
 	return extend({}, value);
 }
 
-module.exports.set = function(fields, value) {
+self.set = function(fields, value) {
 	if (typeof fields !== 'string') throw new Error('Argument #1 expects a string.'); 
 	return setValueR(fields, configuration_data, value);
 }
