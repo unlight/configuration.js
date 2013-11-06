@@ -7,6 +7,7 @@ var functions = require('useful-functions.js');
 var getValueR = functions.getValueR;
 var setValueR = functions.setValueR;
 var extend = functions.extend;
+var isArray = functions.isArray;
 
 // Private vars.
 var configuration_is_loaded = false;
@@ -18,9 +19,16 @@ module.exports = self;
 // Public methods.
 self.loadFromFilesSync = function() {
 	var sandbox = {};
+	var files = [];
 	for (var i = 0, length = arguments.length; i < length; i++) {
-		var file = arguments[i];
-		// console.log(__dirname + ' ' + file);
+		if (isArray(arguments[i])) {
+			files = files.concat(arguments[i]);
+		} else {
+			files[files.length] = "" + arguments[i];
+		}
+	}
+	for (var i = 0, length = files.length; i < length; i++) {
+		var file = files[i];
 		if (!fs.existsSync(file)) continue;
 		var code = fs.readFileSync(file, 'utf8');
 		code = 'var data = ' + code;
