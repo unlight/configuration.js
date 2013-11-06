@@ -17,12 +17,14 @@ var self = {};
 module.exports = self;
 
 // Public methods.
+
 self.loadFromFilesSync = function() {
 	var sandbox = {};
 	var files = [];
 	for (var i = 0, length = arguments.length; i < length; i++) {
-		if (isArray(arguments[i])) {
-			files = files.concat(arguments[i]);
+		var item = arguments[i];
+		if (isArray(item)) {
+			files = files.concat(item);
 		} else {
 			files[files.length] = "" + arguments[i];
 		}
@@ -38,6 +40,16 @@ self.loadFromFilesSync = function() {
 		extend(configuration_data, sandbox.data);
 	}
 	configuration_is_loaded = true;
+	return self;
+}
+
+self.loadFromData = function() {
+	for (var i = 0, count = arguments.length; i < count; i++) {
+		var item = arguments[i];
+		if (typeof item == "object" && item.constructor === Object) {
+			extend(configuration_data, item);
+		}
+	}
 	return self;
 }
 

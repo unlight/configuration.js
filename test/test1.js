@@ -36,5 +36,15 @@ wru.test([
 
 			wru.assert("conf == configuration", conf == configuration);
 		}
+	}, {
+		name: "plain object",
+		test: function() {
+			var conf = configuration.loadFromData({
+				application: {
+					title: "A"
+				}
+			});
+			wru.assert("application.title", conf.get("application.title") == "A");
+		}
 	}
 ]);
