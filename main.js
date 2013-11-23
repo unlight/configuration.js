@@ -1,13 +1,11 @@
-// function Configuration(data) {
-// }
-
-var fs = require('fs');
-var vm = require('vm');
-var functions = require('useful-functions.js');
+var fs = require("fs");
+var vm = require("vm");
+var functions = require("useful-functions.js");
 var getValueR = functions.getValueR;
 var setValueR = functions.setValueR;
 var extend = functions.extend;
 var isArray = functions.isArray;
+var existsSync = fs.existsSync || require("path").existsSync;
 
 // Private vars.
 var configuration_is_loaded = false;
@@ -31,8 +29,8 @@ self.loadFromFilesSync = function() {
 	}
 	for (var i = 0, length = files.length; i < length; i++) {
 		var file = files[i];
-		if (!fs.existsSync(file)) continue;
-		var code = fs.readFileSync(file, 'utf8');
+		if (!existsSync(file)) continue;
+		var code = fs.readFileSync(file, "utf8");
 		code = 'var data = ' + code;
 		vm.runInNewContext(code, sandbox);
 		// if (typeof sandbox.data == "undefined") {
