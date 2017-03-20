@@ -1,5 +1,7 @@
 configuration.js
 ----------------
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/unlight/configuration.js.svg)](https://greenkeeper.io/)
 Simple configuration management.
 
 ### INSTALL
